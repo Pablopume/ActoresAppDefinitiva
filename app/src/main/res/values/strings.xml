@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ActoresApp</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="otro">Otro</string>
+    <string name="est_vivo">¿Está vivo?</string>
+    <string name="nombre">Nombre</string>
+    <string name="premios_scar">Premios Óscar</string>
+    <string name="pel_cula_famosa">Película Famosa</string>
+</resources>
