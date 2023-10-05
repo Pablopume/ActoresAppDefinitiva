@@ -119,6 +119,13 @@
 
     <!-- En tu layout XML -->
 
+    <Button
+        android:layout_width="410dp"
+        android:layout_height="43dp"
+        android:text="ACTUALIZAR ACTOR"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="588dp"
+       />
 
     <ImageButton
         android:id="@+id/imageButtonLeft"
