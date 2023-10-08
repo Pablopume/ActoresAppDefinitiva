@@ -3,6 +3,6 @@ package com.example.actoresapp.ui.pantallamain
 import com.example.actoresapp.domain.modelo.Actores
 
 data class MainState(
-val actores: Actores= Actores("Fernando",true,"Desembarque",2,"Masculino"))
-val error: String?= ""
-
+val actores: Actores= Actores("",true,"",0,""),
+val error: String?= null
+)

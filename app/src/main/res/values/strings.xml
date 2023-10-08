@@ -7,4 +7,5 @@
     <string name="nombre">Nombre</string>
     <string name="premios_scar">Premios Óscar</string>
     <string name="pel_cula_famosa">Película Famosa</string>
+    <string name="name">name</string>
 </resources>
