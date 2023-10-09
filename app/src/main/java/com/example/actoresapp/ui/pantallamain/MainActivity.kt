@@ -7,9 +7,7 @@ import androidx.activity.viewModels
 import com.example.actoresapp.domain.modelo.Actores
 import com.example.actoresapp.domain.usecases.AddActorUseCase
 import com.example.actoresapp.domain.usecases.DeleteActorUseCase
-import com.example.actoresapp.domain.usecases.GetActorAnteriorUseCase
 import com.example.actoresapp.domain.usecases.GetActorIdUseCase
-import com.example.actoresapp.domain.usecases.GetActorSiguienteUseCase
 import com.example.actoresapp.domain.usecases.GetActoresUseCase
 import com.example.actoresapp.domain.usecases.UpdateActorUseCase
 import com.example.actoresapp.utils.StringProvider
@@ -25,9 +23,7 @@ class MainActivity : AppCompatActivity() {
             GetActoresUseCase(),
             GetActorIdUseCase(),
             UpdateActorUseCase(),
-            StringProvider(this),
-            GetActorSiguienteUseCase(),
-            GetActorAnteriorUseCase()
+            StringProvider(this)
         )
     }
 
@@ -38,6 +34,10 @@ class MainActivity : AppCompatActivity() {
             setContentView(root)
         }
         observeViewModel()
+       metodos()
+
+    }
+    private fun metodos(){
         with(binding) {
             nextButton.setOnClickListener {
                 viewModel.getActorSiguiente()
@@ -70,20 +70,42 @@ class MainActivity : AppCompatActivity() {
                     observeViewModel()
                 }
             }
+            updateButton.setOnClickListener {
+                val name: String=textName.text.toString()
+                val slide: Int= slider2.value.toInt()
+                var genero: String=""
+                when (radioGroup.checkedRadioButtonId){
+                    radioButtonHombre.id->genero=radioButtonHombre.text.toString()
+                    radioButtonMujer.id->genero=radioButtonMujer.text.toString()
+                    radioButtonOtro.id->genero=radioButtonOtro.text.toString()
+                }
+                val vivo: Boolean=checkBox.isChecked
+                val peli: String=peliculaFam.text.toString()
+                var actor= Actores(name,vivo,peli,slide,genero)
+                viewModel.updateActor(actor)
+
+
+            }
         }
 
     }
-
     private fun observeViewModel() {
+
         viewModel.uiState.observe(this@MainActivity) { state ->
             state.error?.let { error ->
                 Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()
                 viewModel.errorMostrado()
             }
+
             if (state.error == null) {
                 with(binding) {
                     textName.setText(state.actores.nombre)
-
+                    if(state.botonIzquierda==false){
+                            beforeButton.isActivated=false
+                    }
+                    if(state.botonDerecha==false){
+                        nextButton.isActivated=false
+                    }
                     when (state.actores.genero) {
                         radioButtonHombre.text -> radioButtonHombre.isChecked = true
                         radioButtonMujer.text -> radioButtonMujer.isChecked = true

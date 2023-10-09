@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.actoresapp.domain.modelo.Actores
 import com.example.actoresapp.domain.usecases.AddActorUseCase
 import com.example.actoresapp.domain.usecases.DeleteActorUseCase
-import com.example.actoresapp.domain.usecases.GetActorAnteriorUseCase
 import com.example.actoresapp.domain.usecases.GetActorIdUseCase
-import com.example.actoresapp.domain.usecases.GetActorSiguienteUseCase
 import com.example.actoresapp.domain.usecases.GetActoresUseCase
 import com.example.actoresapp.domain.usecases.UpdateActorUseCase
 import com.example.actoresapp.utils.StringProvider
@@ -22,8 +20,6 @@ class MainViewModel(
     private val getActorIdUseCase: GetActorIdUseCase,
     private val updateActorUseCase: UpdateActorUseCase,
     private val stringProvider: StringProvider,
-    private val getActorSiguienteUseCase: GetActorSiguienteUseCase,
-    private val getActorAnteriorUseCase: GetActorAnteriorUseCase
 ) : ViewModel() {
     private val _uiState = MutableLiveData(MainState())
     val uiState: LiveData<MainState> get() = _uiState
@@ -36,43 +32,67 @@ class MainViewModel(
     }
 
     fun deleteActor() {
-        if (!deleteActorUseCase(_uiState.value?.actores!!)) {
+        if (!deleteActorUseCase.deleteActor(_uiState.value?.actores!!)) {
             _uiState.value = MainState(
                 error = stringProvider.getString(R.string.app_name)
             )
 
-        }else{
-            _uiState.value=MainState(actores = getActorIdUseCase(0))
+        } else {
+            if (deleteActorUseCase.listEmpty()) {
+                _uiState.value = MainState(actores = Actores())
+            } else {
+                _uiState.value = MainState(actores = getActorIdUseCase(0))
+            }
         }
     }
 
     fun addActor(actor: Actores) {
-        if (!addActoruseCase(actor)) {
-            _uiState.value = MainState(
-                actores = _uiState.value!!.actores,
-                error = stringProvider.getString(R.string.app_name)
+        if (!addActoruseCase.hayRepetidos(actor)) {
+            if (!addActoruseCase.addActor(actor)) {
+                _uiState.value = MainState(
+                    actores = _uiState.value!!.actores,
+                    error = stringProvider.getString(R.string.repetido)
+
+                )
+            } else {
+                _uiState.value = MainState(actores = actor, error = null)
+            }
+        } else {
+            _uiState.value=MainState(actores=_uiState.value?.actores!!, error=stringProvider.getString(R.string.repetido)
             )
+
+
         }
     }
-    fun getActorAnterior(){
-        val actor2: Actores=_uiState.value!!.actores
-        _uiState.value=MainState(actores = getActorAnteriorUseCase(actor2),
-            error = null)
+
+    fun getActorAnterior() {
+        val actor2: Actores = _uiState.value!!.actores
+        _uiState.value = MainState(
+            actores = getActoresUseCase.obtenerActorAnterior(actor2),
+            error = null
+        )
     }
-    fun getActorSiguiente(){
-        val actor2: Actores= _uiState.value!!.actores
-        _uiState.value= MainState(actores= getActorSiguienteUseCase(actor2),
-            error = null)
+
+    fun getActorSiguiente() {
+        val actor2: Actores = _uiState.value!!.actores
+        _uiState.value = MainState(
+            actores = getActoresUseCase.obtenerActorSiguiente(actor2),
+            error = null
+        )
     }
+
     fun errorMostrado() {
-        _uiState.value = _uiState.value?.copy(error = null)
+        _uiState.value = MainState(error = null, actores=_uiState.value?.actores!!)
     }
+
     fun updateActor(actor: Actores) {
         updateActorUseCase(_uiState.value!!.actores, actor)
+        _uiState.value = MainState(actores = actor)
     }
 
 
 }
+
 class MainViewModelFactory(
     private val addActoruseCase: AddActorUseCase,
     private val deleteActorUseCase: DeleteActorUseCase,
@@ -80,8 +100,6 @@ class MainViewModelFactory(
     private val getActorIdUseCase: GetActorIdUseCase,
     private val updateActorUseCase: UpdateActorUseCase,
     private val stringProvider: StringProvider,
-    private val getActorSiguienteUseCase: GetActorSiguienteUseCase,
-    private val getActorAnteriorUseCase: GetActorAnteriorUseCase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -92,10 +110,7 @@ class MainViewModelFactory(
                 getActoresUseCase,
                 getActorIdUseCase,
                 updateActorUseCase,
-                stringProvider,
-                getActorSiguienteUseCase,
-                getActorAnteriorUseCase
-
+                stringProvider
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

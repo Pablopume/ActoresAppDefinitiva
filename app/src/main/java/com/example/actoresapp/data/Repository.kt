@@ -42,8 +42,14 @@ object Repository {
     fun updateActores(actorAntiguo: Actores, actorActualizado: Actores) {
         actores[actores.indexOf(actorAntiguo)] = actorActualizado
     }
-
+    fun hayRepetidos(actor: Actores): Boolean {
+        return actores.contains(actor)
+    }
     fun getActorId(id: Int): Actores {
         return actores[id]
+    }
+
+    fun listEmpty(): Boolean{
+        return actores.isEmpty()
     }
 }
