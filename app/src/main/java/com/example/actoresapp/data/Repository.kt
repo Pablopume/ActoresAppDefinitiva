@@ -18,7 +18,13 @@ object Repository {
     fun deleteActor(actor: Actores)= actores.remove(actor)
     fun getActores(): List<Actores> = actores
 
+    fun deshabilitarIzquierda(actor: Actores): Boolean{
+        return actores.indexOf(actor)==0
+    }
 
+    fun deshabilitarDerecha(actor: Actores): Boolean{
+        return actores.indexOf(actor)+1==actores.size
+    }
     fun deleteActores(id: Int) = actores.remove(actores[id])
 
     fun getActorAnterior(actor: Actores): Actores {

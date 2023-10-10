@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.actoresapp.domain.modelo.Actores
 import com.example.actoresapp.domain.usecases.AddActorUseCase
 import com.example.actoresapp.domain.usecases.DeleteActorUseCase
+import com.example.actoresapp.domain.usecases.DeshabilitarBotonesUseCase
 import com.example.actoresapp.domain.usecases.GetActorIdUseCase
 import com.example.actoresapp.domain.usecases.GetActoresUseCase
 import com.example.actoresapp.domain.usecases.UpdateActorUseCase
@@ -19,6 +20,7 @@ class MainViewModel(
     private val getActoresUseCase: GetActoresUseCase,
     private val getActorIdUseCase: GetActorIdUseCase,
     private val updateActorUseCase: UpdateActorUseCase,
+    private val deshabilitarBotones: DeshabilitarBotonesUseCase,
     private val stringProvider: StringProvider,
 ) : ViewModel() {
     private val _uiState = MutableLiveData(MainState())
@@ -43,6 +45,15 @@ class MainViewModel(
             } else {
                 _uiState.value = MainState(actores = getActorIdUseCase(0))
             }
+        }
+    }
+    fun deshabilitarBotones(){
+        if (deshabilitarBotones.deshabilitarIzquierda(_uiState.value!!.actores)){
+            _uiState.value=_uiState.value?.copy(botonIzquierda = false)
+        }else if (deshabilitarBotones.deshabilitarDerecha(_uiState.value!!.actores)){
+            _uiState.value=_uiState.value?.copy(botonDerecha = false)
+        }else{
+            _uiState.value = _uiState.value?.copy(botonIzquierda = true, botonDerecha = true)
         }
     }
 
@@ -100,6 +111,7 @@ class MainViewModelFactory(
     private val getActorIdUseCase: GetActorIdUseCase,
     private val updateActorUseCase: UpdateActorUseCase,
     private val stringProvider: StringProvider,
+    private val deshabilitarBotones: DeshabilitarBotonesUseCase,
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -110,8 +122,10 @@ class MainViewModelFactory(
                 getActoresUseCase,
                 getActorIdUseCase,
                 updateActorUseCase,
-                stringProvider
-            ) as T
+                deshabilitarBotones,
+                stringProvider,
+
+                ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
