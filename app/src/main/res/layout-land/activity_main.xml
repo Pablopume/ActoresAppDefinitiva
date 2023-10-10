@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.actoresapp.ui.pantallamain.MainActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context="com.example.actoresapp.ui.pantallamain.MainActivity">
 
 
     <!-- Puedes agregar más elementos de diseño aquí según tus necesidades -->
@@ -31,7 +31,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/valoon" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <RadioGroup
@@ -53,6 +54,7 @@
             android:id="@+id/radioButtonHombre"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/valoon"
             android:text="@string/masculino">
 
         </RadioButton>
@@ -61,6 +63,7 @@
             android:id="@+id/radioButtonMujer"
             android:layout_width="131dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/valoon"
             android:text="@string/femenino">
 
         </RadioButton>
@@ -69,6 +72,7 @@
             android:id="@+id/radioButtonOtro"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/valoon"
             android:text="@string/otro">
 
         </RadioButton>
@@ -101,6 +105,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="79dp"
         android:layout_marginBottom="17dp"
+        android:fontFamily="@font/valoon"
         android:text="@string/est_vivo"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,6 +146,7 @@
             android:id="@+id/peliculaFam"
             android:layout_width="193dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/valoon"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="351dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -149,8 +155,8 @@
         android:id="@+id/updateButton"
         android:layout_width="646dp"
         android:layout_height="48dp"
-
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/valoon"
         android:text="ACTUALIZAR ACTOR"
         app:layout_constraintBottom_toTopOf="@+id/imageButtonBin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,8 +203,8 @@
         android:id="@+id/addButton"
         android:layout_width="96dp"
         android:layout_height="100dp"
-        android:src="@drawable/add"
         android:background="@color/purple"
+        android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonBin"
         app:layout_constraintStart_toEndOf="@+id/beforeButton"

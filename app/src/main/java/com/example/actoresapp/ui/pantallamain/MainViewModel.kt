@@ -38,7 +38,6 @@ class MainViewModel(
             _uiState.value = MainState(
                 error = stringProvider.getString(R.string.app_name)
             )
-
         } else {
             if (deleteActorUseCase.listEmpty()) {
                 _uiState.value = MainState(actores = Actores())
@@ -47,12 +46,13 @@ class MainViewModel(
             }
         }
     }
-    fun deshabilitarBotones(){
-        if (deshabilitarBotones.deshabilitarIzquierda(_uiState.value!!.actores)){
-            _uiState.value=_uiState.value?.copy(botonIzquierda = false)
-        }else if (deshabilitarBotones.deshabilitarDerecha(_uiState.value!!.actores)){
-            _uiState.value=_uiState.value?.copy(botonDerecha = false)
-        }else{
+
+    fun deshabilitarBotones() {
+        if (deshabilitarBotones.deshabilitarIzquierda(_uiState.value!!.actores)) {
+            _uiState.value = _uiState.value?.copy(botonIzquierda = false)
+        } else if (deshabilitarBotones.deshabilitarDerecha(_uiState.value!!.actores)) {
+            _uiState.value = _uiState.value?.copy(botonDerecha = false)
+        } else {
             _uiState.value = _uiState.value?.copy(botonIzquierda = true, botonDerecha = true)
         }
     }
@@ -69,7 +69,9 @@ class MainViewModel(
                 _uiState.value = MainState(actores = actor, error = null)
             }
         } else {
-            _uiState.value=MainState(actores=_uiState.value?.actores!!, error=stringProvider.getString(R.string.repetido)
+            _uiState.value = MainState(
+                actores = _uiState.value?.actores!!,
+                error = stringProvider.getString(R.string.repetido)
             )
 
 
@@ -93,7 +95,7 @@ class MainViewModel(
     }
 
     fun errorMostrado() {
-        _uiState.value = MainState(error = null, actores=_uiState.value?.actores!!)
+        _uiState.value = MainState(error = null, actores = _uiState.value?.actores!!)
     }
 
     fun updateActor(actor: Actores) {

@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
                     val peli: String = peliculaFam.text.toString()
                     var actor = Actores(name, vivo, peli, slide, genero)
                     viewModel.addActor(actor)
+                    viewModel.deshabilitarBotones()
                     observeViewModel()
                 }
             }
@@ -125,12 +126,10 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-
                     when (state.actores.genero) {
                         radioButtonHombre.text -> radioButtonHombre.isChecked = true
                         radioButtonMujer.text -> radioButtonMujer.isChecked = true
                         radioButtonOtro.text -> radioButtonOtro.isChecked = true
-
                     }
                     slider2.value = state.actores.premiosOscar.toFloat()
                     checkBox.isChecked = state.actores.vivo
