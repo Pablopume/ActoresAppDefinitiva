@@ -6,13 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.example.actoresapp.ui.pantallamain.MainActivity">
-
-
-    <!-- Puedes agregar más elementos de diseño aquí según tus necesidades -->
-
-
-    <!-- En tu layout XML -->
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="200dp"
@@ -40,9 +33,7 @@
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginStart="183dp"
-
         android:layout_marginEnd="148dp"
-
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/slider2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +47,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/valoon"
             android:text="@string/masculino">
-
         </RadioButton>
 
         <RadioButton
@@ -65,7 +55,6 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/valoon"
             android:text="@string/femenino">
-
         </RadioButton>
 
         <RadioButton
@@ -74,7 +63,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/valoon"
             android:text="@string/otro">
-
         </RadioButton>
 
     </RadioGroup>
@@ -90,7 +78,7 @@
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="33dp"
         android:fontFamily="@font/valoon"
-        android:text="Premios Óscar"
+        android:text="@string/premios_scar"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/updateButton"
         app:layout_constraintEnd_toStartOf="@+id/slider2"
@@ -117,8 +105,6 @@
         android:id="@+id/slider2"
         android:layout_width="400dp"
         android:layout_height="200dp"
-
-
         android:stepSize="1.0"
         android:valueFrom="0.0"
         android:valueTo="10.0"

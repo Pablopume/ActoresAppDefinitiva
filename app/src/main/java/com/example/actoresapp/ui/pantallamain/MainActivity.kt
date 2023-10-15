@@ -39,31 +39,31 @@ class MainActivity : AppCompatActivity() {
         viewModel.deshabilitarBotones()
         observeViewModel()
         metodos()
-
+        observeViewModel()
     }
 
     private fun metodos() {
         with(binding) {
-
             nextButton.setOnClickListener {
                 viewModel.getActorSiguiente()
                 viewModel.deshabilitarBotones()
-                observeViewModel()
+
             }
             beforeButton.setOnClickListener {
                 viewModel.getActorAnterior()
                 viewModel.deshabilitarBotones()
-                observeViewModel()
+
             }
             imageButtonBin.setOnClickListener {
                 viewModel.deleteActor()
-                observeViewModel()
+                viewModel.deshabilitarBotones()
+
             }
             addButton.setOnClickListener {
                 if (textName.text.isNullOrEmpty() || peliculaFam.text.isNullOrEmpty()) {
                     Toast.makeText(
                         this@MainActivity,
-                        "Rellena todos los atributos del actor",
+                        Constantes.RELLENA,
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
@@ -80,7 +80,6 @@ class MainActivity : AppCompatActivity() {
                     var actor = Actores(name, vivo, peli, slide, genero)
                     viewModel.addActor(actor)
                     viewModel.deshabilitarBotones()
-                    observeViewModel()
                 }
             }
             updateButton.setOnClickListener {
@@ -96,15 +95,13 @@ class MainActivity : AppCompatActivity() {
                 val peli: String = peliculaFam.text.toString()
                 var actor = Actores(name, vivo, peli, slide, genero)
                 viewModel.updateActor(actor)
-
-
+                viewModel.deshabilitarBotones()
             }
         }
 
     }
 
     private fun observeViewModel() {
-
         viewModel.uiState.observe(this@MainActivity) { state ->
             state.error?.let { error ->
                 Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()
@@ -112,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (state.error == null) {
+
                 with(binding) {
 
                     textName.setText(state.actores.nombre)

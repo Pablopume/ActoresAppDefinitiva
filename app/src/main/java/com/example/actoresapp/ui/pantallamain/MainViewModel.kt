@@ -129,6 +129,6 @@ class MainViewModelFactory(
 
                 ) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        throw IllegalArgumentException(Constantes.UNKNOWN_VIEW_MODEL_CLASS)
     }
 }
